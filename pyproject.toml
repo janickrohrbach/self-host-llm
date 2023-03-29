@@ -1,0 +1,17 @@
+[build-system]
+requires = ["setuptools", "setuptools-scm"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "self_host_llm"
+authors = [{ name = "Janick Rohrbach" }]
+requires-python = ">=3.8"
+license = { text = "MIT" }
+dependencies = ["transformers >= 4.27.3", "torch >= 2.0.0"]
+version = "0.0.1"
+
+[project.optional-dependencies]
+dev = ["black", "coverage", "mypy", "pytest", "ruff"]
+
+[project.scripts]
+my-script = "my_package.module:function"

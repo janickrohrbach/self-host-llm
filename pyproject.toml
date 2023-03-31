@@ -10,7 +10,7 @@ license = { text = "MIT" }
 dependencies = [
     "fastapi >= 0.95.0",
     "sentencepiece >=0.1.97",
-    "transformers @ git+https://github.com/huggingface/transformers",
+    "transformers >= 4.27.4",
     "torch >= 2.0.0",
     "uvicorn >= 0.21.1",
 ]
@@ -19,5 +19,6 @@ version = "0.0.1"
 [project.optional-dependencies]
 dev = ["black", "build", "coverage", "mypy", "pytest", "ruff"]
 
-[project.scripts]
-my-script = "my_package.module:function"
+[tool.setuptools]
+packages = ["self_host_llm"]
+package-dir = { "" = "src" }

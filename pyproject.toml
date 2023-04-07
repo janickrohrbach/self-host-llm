@@ -9,6 +9,7 @@ requires-python = ">=3.8"
 license = { text = "MIT" }
 dependencies = [
     "fastapi >= 0.95.0",
+    "PyYAML >= 6.0",
     "sentencepiece >=0.1.97",
     "transformers >= 4.27.4",
     "torch >= 2.0.0",

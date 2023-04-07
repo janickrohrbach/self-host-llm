@@ -1,3 +1,4 @@
+anyio==3.6.2
 attrs==22.2.0
 black==23.3.0
 build==0.10.0
@@ -5,7 +6,9 @@ certifi==2022.12.7
 charset-normalizer==3.1.0
 click==8.1.3
 coverage==7.2.2
+fastapi==0.95.0
 filelock==3.10.7
+h11==0.14.0
 huggingface-hub==0.13.3
 idna==3.4
 iniconfig==2.0.0
@@ -20,18 +23,23 @@ packaging==23.0
 pathspec==0.11.1
 platformdirs==3.2.0
 pluggy==1.0.0
+psutil==5.9.4
+pydantic==1.10.7
 pyproject_hooks==1.0.0
 pytest==7.2.2
 PyYAML==6.0
 regex==2023.3.23
 requests==2.28.2
 ruff==0.0.259
--e git+ssh://git@github.com/janickrohrbach/self-host-llm.git@359ffb49c57ff844dc163191a8bbdb7f948935aa#egg=self_host_llm
+-e git+ssh://git@github.com/janickrohrbach/self-host-llm.git@e1dc4c6e3b5c2850a31a357ea6118984ab00d0ba#egg=self_host_llm
 sentencepiece==0.1.97
+sniffio==1.3.0
+starlette==0.26.1
 sympy==1.11.1
 tokenizers==0.13.2
 torch==2.0.0
 tqdm==4.65.0
-transformers @ git+https://github.com/huggingface/transformers@cd73b9a8c140fb74cd93187f5c3d380cfc308023
+transformers==4.27.4
 typing_extensions==4.5.0
 urllib3==1.26.15
+uvicorn==0.21.1

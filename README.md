@@ -1,8 +1,15 @@
 ## Self-host LLM
 
-# ChatGPT like functionality to be self-hosted
+ChatGPT like functionality to be self-hosted. This uses
+[Flan-Alpaca](https://github.com/declare-lab/flan-alpaca) large model. Model can be
+changed to any other Flan-Alpaca model in
+[src/self_host_llm/config.yaml](src/self_host_llm/config.yaml).
+
+![Conversation Screenshot](public/conversation_screenshot.png)
 
 # Backend
+
+Uses Python FastAPI to serve the model.
 
 ## Developing
 
@@ -24,6 +31,8 @@ build --wheel
 ```
 
 # Frontend
+
+Simple chat UI built with SvelteKit.
 
 ## Developing
 

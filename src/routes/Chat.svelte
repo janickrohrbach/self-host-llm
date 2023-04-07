@@ -1,11 +1,16 @@
 <script lang="ts">
   import Message from "./ChatMessage.svelte";
   import Fa from "svelte-fa";
-  import {faPaperPlane} from "@fortawesome/free-regular-svg-icons";
+  import {faPaperPlane, faTrashCan} from "@fortawesome/free-regular-svg-icons";
 
   let prompt: string | undefined;
 
-  let messages = [{text: "Hi, how can I help you?", sentByMe: false}];
+  let starting_message = {text: "Hi, how can I help you?", sentByMe: false};
+  let messages = [starting_message];
+
+  async function resetChat() {
+    messages = [starting_message];
+  }
 
   async function getLLMResponse(message: string | undefined) {
     if (message != undefined) {
@@ -14,13 +19,23 @@
       messages.push({text: "...", sentByMe: false});
       messages = messages; // this way svelte knows it updated
 
-      const res = await fetch("http://127.0.0.1:8000/api", {
+      let custom_promt =
+        (messages.length > 3 ? "Passage: " : "") +
+        messages
+          .slice(1, -2)
+          .map((m) => m.text)
+          .join(" ") +
+        "\n\nQuestion: " +
+        message;
+      console.log(custom_promt);
+
+      const res = await fetch("http://127.0.0.1:5000/api", {
         method: "POST",
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
         },
-        body: JSON.stringify({text: message}),
+        body: JSON.stringify({text: custom_promt}),
       });
 
       const json = await res.json();
@@ -32,11 +47,15 @@
 </script>
 
 <div class="chat">
-  {#each messages as message}
-    <div>
-      <Message text={message.text} sentByMe={message.sentByMe} />
+  <div class="chat-container">
+    <div class="chat-messages">
+      {#each messages as message}
+        <div>
+          <Message text={message.text} sentByMe={message.sentByMe} />
+        </div>
+      {/each}
     </div>
-  {/each}
+  </div>
   <form class="chat-input">
     <input
       type="text"
@@ -47,12 +66,22 @@
     <button type="submit" class="send" on:click={() => getLLMResponse(prompt)}>
       <Fa icon={faPaperPlane} size="1x" />
     </button>
+    <button class="reset" on:click={() => resetChat()}
+      ><Fa icon={faTrashCan} size="1x" /></button
+    >
   </form>
 </div>
 
 <style>
   .chat {
     width: 75%;
+  }
+
+  .chat-container {
+    height: 400px;
+    overflow: auto;
+    display: flex;
+    flex-direction: column-reverse;
   }
 
   .chat-input {
@@ -74,5 +103,14 @@
     border: 0px;
     width: 50px;
     background-color: #d2d6de;
+  }
+
+  .reset {
+    position: relative;
+    border-radius: 5px;
+    border: 0px;
+    width: 50px;
+    background-color: #d2d6de;
+    margin-left: 20px;
   }
 </style>

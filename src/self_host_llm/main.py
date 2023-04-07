@@ -1,14 +1,23 @@
+import logging
+from pathlib import Path
+
+import yaml
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 from pydantic import BaseModel
 from transformers import pipeline
+
+logger = logging.getLogger(__name__)
+
+config = yaml.safe_load((Path(__file__).parent / "config.yaml").open())
 
 
 class Prompt(BaseModel):
     text: str
 
 
-model = pipeline(model="declare-lab/flan-alpaca-base")
+logger.info("loading model")
+model = pipeline(model=config["model_name"])
 app = FastAPI()
 
 app.add_middleware(
